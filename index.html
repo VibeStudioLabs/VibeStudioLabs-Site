@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Vibe Studio Labs | Tecnologia que vira produto</title>
+  <meta
+    name="description"
+    content="A Vibe Studio Labs cria produtos digitais, sistemas, automações e experiências digitais."
+  >
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      background: #05060b;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    /* FUNDO */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      background:
+        radial-gradient(circle at 18% 30%, rgba(106, 0, 255, .20), transparent 35%),
+        radial-gradient(circle at 82% 28%, rgba(0, 183, 255, .16), transparent 34%),
+        radial-gradient(circle at 55% 80%, rgba(81, 0, 255, .10), transparent 38%),
+        #05060b;
+    }
+
+    .grid {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      opacity: .16;
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: linear-gradient(to bottom, black, transparent 90%);
+    }
+
+    /* HEADER */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      backdrop-filter: blur(18px);
+      background: rgba(5, 6, 11, .65);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    nav {
+      max-width: 1200px;
+      margin: auto;
+      height: 78px;
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: white;
+      font-weight: 800;
+      letter-spacing: .5px;
+    }
+
+    /* Símbolo provisório em CSS.
+       Depois vamos substituir pela logo oficial em PNG/SVG. */
+    .mini-logo {
+      width: 36px;
+      height: 36px;
+      position: relative;
+      filter: drop-shadow(0 0 12px rgba(111, 0, 255, .45));
+    }
+
+    .mini-logo::before,
+    .mini-logo::after {
+      content: "";
+      position: absolute;
+      top: 4px;
+      width: 15px;
+      height: 28px;
+    }
+
+    .mini-logo::before {
+      left: 3px;
+      background: linear-gradient(180deg, #6f00ff, #9c00ff);
+      clip-path: polygon(0 0, 100% 0, 100% 65%, 50% 100%, 0 65%);
+    }
+
+    .mini-logo::after {
+      right: 3px;
+      background: linear-gradient(180deg, #00bfff, #0075ff);
+      clip-path: polygon(0 0, 100% 0, 100% 65%, 50% 100%, 0 65%);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-links a {
+      color: #b8bbc8;
+      text-decoration: none;
+      font-size: 14px;
+      transition: .25s;
+    }
+
+    .nav-links a:hover {
+      color: white;
+    }
+
+    .nav-button {
+      padding: 11px 20px;
+      border-radius: 10px;
+      color: white !important;
+      border: 1px solid rgba(138, 63, 255, .55);
+      background: linear-gradient(
+        135deg,
+        rgba(105, 0, 255, .28),
+        rgba(0, 155, 255, .14)
+      );
+      box-shadow: 0 0 30px rgba(101, 0, 255, .15);
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      max-width: 1200px;
+      margin: auto;
+      padding: 145px 28px 80px;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      align-items: center;
+      gap: 60px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 13px;
+      margin-bottom: 24px;
+      border: 1px solid rgba(143, 81, 255, .25);
+      background: rgba(111, 0, 255, .08);
+      border-radius: 100px;
+      color: #b9a0ff;
+      font-size: 12px;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+    }
+
+    .eyebrow span {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #7b2cff;
+      box-shadow: 0 0 12px #7b2cff;
+    }
+
+    h1 {
+      font-size: clamp(55px, 7vw, 92px);
+      line-height: .95;
+      letter-spacing: -5px;
+      max-width: 700px;
+    }
+
+    .gradient-text {
+      display: block;
+      background: linear-gradient(90deg, #8a2cff, #b239ff 45%, #00aaff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      filter: drop-shadow(0 0 25px rgba(119, 0, 255, .2));
+    }
+
+    .hero p {
+      margin-top: 28px;
+      max-width: 570px;
+      color: #a8abb7;
+      font-size: 18px;
+      line-height: 1.65;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      margin-top: 35px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 0 24px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+      transition: .3s;
+    }
+
+    .btn-primary {
+      color: white;
+      background: linear-gradient(90deg, #6900ff, #8b20ff);
+      box-shadow: 0 10px 40px rgba(100, 0, 255, .35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 50px rgba(100, 0, 255, .55);
+    }
+
+    .btn-secondary {
+      color: #e4e4e8;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.025);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,.07);
+      transform: translateY(-3px);
+    }
+
+    /* LOGO GRANDE */
+    .visual {
+      min-height: 520px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .visual::before {
+      content: "";
+      position: absolute;
+      width: 430px;
+      height: 430px;
+      border-radius: 50%;
+      background: radial-gradient(
+        circle,
+        rgba(99,0,255,.22),
+        rgba(0,164,255,.08) 40%,
+        transparent 70%
+      );
+      filter: blur(25px);
+      animation: breathe 5s ease-in-out infinite;
+    }
+
+    .big-logo {
+      width: 330px;
+      height: 330px;
+      position: relative;
+      animation: float 5s ease-in-out infinite;
+      filter: drop-shadow(-30px 25px 45px rgba(82,0,255,.18))
+              drop-shadow(30px 10px 50px rgba(0,153,255,.12));
+    }
+
+    .piece {
+      position: absolute;
+    }
+
+    .piece-left {
+      left: 30px;
+      top: 28px;
+      width: 132px;
+      height: 205px;
+      background: linear-gradient(160deg, #8c20ff, #5d00d9);
+      clip-path: polygon(0 0, 100% 0, 100% 67%, 54% 100%, 0 68%);
+      box-shadow: inset 0 0 30px rgba(255,255,255,.08);
+    }
+
+    .piece-right {
+      right: 30px;
+      top: 28px;
+      width: 132px;
+      height: 205px;
+      background: linear-gradient(160deg, #00c6ff, #006fff);
+      clip-path: polygon(0 0, 100% 0, 100% 68%, 46% 100%, 0 67%);
+      box-shadow: inset 0 0 30px rgba(255,255,255,.12);
+    }
+
+    .piece-bottom {
+      left: 98px;
+      bottom: 30px;
+      width: 135px;
+      height: 125px;
+      background: linear-gradient(145deg, #292b32, #111218);
+      clip-path: polygon(50% 0, 100% 38%, 50% 100%, 0 38%);
+      filter: drop-shadow(0 15px 20px rgba(0,0,0,.55));
+    }
+
+    /* SERVIÇOS */
+    .section {
+      max-width: 1200px;
+      margin: auto;
+      padding: 100px 28px;
+    }
+
+    .section-label {
+      color: #8d52ff;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      font-weight: 700;
+    }
+
+    .section h2 {
+      font-size: clamp(36px, 5vw, 58px);
+      letter-spacing: -2px;
+      max-width: 720px;
+    }
+
+    .section-intro {
+      color: #9699a5;
+      line-height: 1.7;
+      margin-top: 18px;
+      max-width: 650px;
+    }
+
+    .cards {
+      margin-top: 55px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      min-height: 245px;
+      padding: 28px;
+      border-radius: 18px;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.018));
+      border: 1px solid rgba(255,255,255,.08);
+      transition: .35s;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      right: -70px;
+      top: -70px;
+      background: #6f00ff;
+      filter: blur(90px);
+      opacity: .22;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(132, 59, 255, .45);
+      background:
+        linear-gradient(145deg, rgba(117,41,255,.10), rgba(255,255,255,.02));
+    }
+
+    .card-icon {
+      width: 45px;
+      height: 45px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 28px;
+      font-size: 21px;
+      background: rgba(105,0,255,.13);
+      border: 1px solid rgba(128,65,255,.25);
+    }
+
+    .card h3 {
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      color: #8f929e;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    /* PROJETO */
+    .project {
+      margin-top: 50px;
+      min-height: 360px;
+      border-radius: 24px;
+      padding: 45px;
+      display: flex;
+      align-items: flex-end;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.08);
+      background:
+        radial-gradient(circle at 75% 40%, rgba(0,157,255,.16), transparent 30%),
+        radial-gradient(circle at 55% 60%, rgba(105,0,255,.24), transparent 38%),
+        #090a11;
+    }
+
+    .project::after {
+      content: "REVORA";
+      position: absolute;
+      right: -15px;
+      top: 45px;
+      font-size: clamp(80px, 14vw, 190px);
+      font-weight: 900;
+      letter-spacing: -12px;
+      color: rgba(255,255,255,.025);
+    }
+
+    .project-content {
+      position: relative;
+      z-index: 2;
+      max-width: 600px;
+    }
+
+    .project-content small {
+      color: #8f5cff;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .project-content h3 {
+      font-size: 42px;
+      margin: 12px 0;
+    }
+
+    .project-content p {
+      color: #9b9eaa;
+      line-height: 1.6;
+    }
+
+    /* CONTATO */
+    .contact {
+      text-align: center;
+      padding-top: 120px;
+      padding-bottom: 130px;
+    }
+
+    .contact h2 {
+      margin: auto;
+      max-width: 850px;
+    }
+
+    .contact p {
+      color: #9699a5;
+      max-width: 590px;
+      margin: 22px auto 32px;
+      line-height: 1.7;
+    }
+
+    footer {
+      border-top: 1px solid rgba(255,255,255,.07);
+      padding: 28px;
+      text-align: center;
+      color: #686b76;
+      font-size: 13px;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0) rotate(-1deg);
+      }
+      50% {
+        transform: translateY(-18px) rotate(1deg);
+      }
+    }
+
+    @keyframes breathe {
+      0%, 100% {
+        transform: scale(.95);
+        opacity: .75;
+      }
+      50% {
+        transform: scale(1.08);
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 850px) {
+      .nav-links a:not(.nav-button) {
+        display: none;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 140px;
+        text-align: center;
+      }
+
+      .hero p {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-actions {
+        justify-content: center;
+      }
+
+      .visual {
+        min-height: 400px;
+      }
+
+      .big-logo {
+        transform: scale(.85);
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        letter-spacing: -3px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      nav {
+        padding: 0 18px;
+      }
+
+      .brand {
+        font-size: 13px;
+      }
+
+      .hero {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .visual {
+        transform: scale(.82);
+        margin: -40px 0;
+      }
+
+      .project {
+        padding: 30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="grid"></div>
+
+  <header>
+    <nav>
+      <a href="#inicio" class="brand">
+        <div class="mini-logo"></div>
+        VIBE STUDIO LABS
+      </a>
+
+      <div class="nav-links">
+        <a href="#inicio">Início</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#projetos">Projetos</a>
+        <a href="#contato" class="nav-button">Vamos conversar</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="hero" id="inicio">
+
+      <div>
+        <div class="eyebrow">
+          <span></span>
+          Vibe Studio Labs
+        </div>
+
+        <h1>
+          Tecnologia que
+          <span class="gradient-text">vira produto.</span>
+        </h1>
+
+        <p>
+          Criamos produtos digitais, sistemas e automações que transformam
+          ideias em experiências reais, funcionais e prontas para crescer.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#projetos" class="btn btn-primary">
+            Conheça nossos projetos →
+          </a>
+
+          <a href="#contato" class="btn btn-secondary">
+            Fale com a gente
+          </a>
+        </div>
+      </div>
+
+      <div class="visual">
+        <div class="big-logo">
+          <div class="piece piece-left"></div>
+          <div class="piece piece-right"></div>
+          <div class="piece piece-bottom"></div>
+        </div>
+      </div>
+
+    </section>
+
+
+    <section class="section" id="servicos">
+
+      <div class="section-label">O que fazemos</div>
+
+      <h2>
+        Ideias ambiciosas merecem tecnologia à altura.
+      </h2>
+
+      <p class="section-intro">
+        Da ideia ao produto, desenvolvemos soluções digitais com foco em
+        experiência, eficiência e resultado.
+      </p>
+
+      <div class="cards">
+
+        <div class="card">
+          <div class="card-icon">⌘</div>
+          <h3>Produtos digitais</h3>
+          <p>
+            Transformamos conceitos em aplicações e produtos digitais
+            pensados para uso real.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">⚡</div>
+          <h3>Automação</h3>
+          <p>
+            Criamos ferramentas para reduzir tarefas repetitivas e tornar
+            operações mais inteligentes.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">◇</div>
+          <h3>Sistemas sob medida</h3>
+          <p>
+            Software desenvolvido para resolver necessidades específicas
+            de cada negócio.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section class="section" id="projetos">
+
+      <div class="section-label">Produtos & projetos</div>
+
+      <h2>
+        Tecnologia construída para sair do papel.
+      </h2>
+
+      <div class="project">
+
+        <div class="project-content">
+          <small>Produto Vibe Studio Labs</small>
+
+          <h3>REVORA</h3>
+
+          <p>
+            Plataforma desenvolvida para transformar a gestão de
+            estabelecimentos em uma experiência mais inteligente,
+            organizada e eficiente.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section class="section contact" id="contato">
+
+      <div class="section-label">Vamos criar?</div>
+
+      <h2>
+        Sua próxima ideia pode virar nosso próximo produto.
+      </h2>
+
+      <p>
+        Tecnologia não precisa começar grande. Precisa começar com uma
+        boa ideia e a vontade de transformá-la em algo real.
+      </p>
+
+      <a href="mailto:contato@vibestudiolabs.com.br"
+         class="btn btn-primary">
+        Fale com a Vibe →
+      </a>
+
+    </section>
+
+  </main>
+
+  <footer>
+    © 2026 Vibe Studio Labs. Tecnologia que vira produto.
+  </footer>
+
+</body>
+</html>
