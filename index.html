@@ -3,839 +3,620 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#06080c">
 
   <title>Vibe Studio Labs | Tecnologia que vira produto</title>
-  <meta
-    name="description"
-    content="A Vibe Studio Labs cria produtos digitais, sistemas inteligentes, automações e experiências digitais."
-  >
+  <meta name="description" content="A Vibe Studio Labs cria produtos digitais, sistemas inteligentes, automações, experiências digitais e estratégias de tráfego pago.">
 
   <style>
-    :root {
-      --bg: #06080c;
-      --bg-soft: #0a0d13;
-      --text: #f5f7fb;
-      --muted: #aeb5c2;
-      --blue: #16a8ff;
-      --purple: #7b5cff;
-      --line: rgba(255,255,255,.09);
+    :root{
+      --bg:#06080c;
+      --bg-soft:#0a0d13;
+      --panel:#0d1119;
+      --text:#f5f7fb;
+      --muted:#aeb5c2;
+      --blue:#16a8ff;
+      --purple:#7b5cff;
+      --line:rgba(255,255,255,.09);
+      --success:#52e3a4;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
       background:
-        radial-gradient(circle at 80% 40%, rgba(31,121,255,.12), transparent 30%),
-        radial-gradient(circle at 55% 70%, rgba(123,92,255,.08), transparent 32%),
+        radial-gradient(circle at 80% 22%,rgba(31,121,255,.10),transparent 26%),
+        radial-gradient(circle at 45% 60%,rgba(123,92,255,.06),transparent 30%),
         var(--bg);
-      color: var(--text);
-      font-family:
-        Inter, ui-sans-serif, system-ui, -apple-system,
-        BlinkMacSystemFont, "Segoe UI", sans-serif;
-      overflow-x: hidden;
+      color:var(--text);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      overflow-x:hidden;
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      opacity: .12;
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.12;
       background-image:
-        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
-      background-size: 50px 50px;
-      mask-image: linear-gradient(to bottom, black, transparent 85%);
+        linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+      background-size:50px 50px;
+      mask-image:linear-gradient(to bottom,black,transparent 88%);
+      z-index:-1;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
+    a{color:inherit;text-decoration:none}
+    button,input,select,textarea{font:inherit}
+    section{scroll-margin-top:100px}
+
+    header{
+      position:fixed;top:0;left:0;width:100%;z-index:100;
+      background:rgba(6,8,12,.76);
+      backdrop-filter:blur(18px);
+      -webkit-backdrop-filter:blur(18px);
+      border-bottom:1px solid rgba(255,255,255,.05);
     }
 
-    /* HEADER */
-
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 100;
-      background: rgba(6,8,12,.70);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border-bottom: 1px solid rgba(255,255,255,.05);
+    .nav{
+      width:min(1380px,calc(100% - 70px));
+      height:92px;margin:auto;
+      display:flex;align-items:center;justify-content:space-between;gap:30px;
     }
 
-    .nav {
-      width: min(1380px, calc(100% - 70px));
-      height: 92px;
-      margin: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 40px;
+    .brand{display:flex;align-items:center}
+    .brand img{width:178px;height:auto;display:block}
+
+    nav{display:flex;align-items:center;gap:34px;color:#c9ced7;font-size:14px;font-weight:600}
+    nav a{transition:.25s ease}
+    nav a:hover{color:white}
+    .nav-cta{
+      padding:12px 19px;border:1px solid rgba(255,255,255,.16);
+      border-radius:12px;background:rgba(255,255,255,.035)
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
+    .hero{
+      position:relative;min-height:100vh;display:flex;align-items:center;
+      padding-top:92px;overflow:hidden
     }
 
-    .brand img {
-      width: 205px;
-      height: auto;
-      display: block;
+    .hero-inner{
+      position:relative;z-index:5;
+      width:min(1380px,calc(100% - 70px));margin:auto;
+      display:grid;grid-template-columns:1.05fr .95fr;align-items:center;
+      min-height:calc(100vh - 92px);gap:30px
     }
 
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 42px;
-      color: #c9ced7;
-      font-size: 14px;
-      font-weight: 600;
+    .hero-copy{padding:60px 0;max-width:760px}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:10px;margin-bottom:26px;
+      color:#c7cbd3;text-transform:uppercase;letter-spacing:.17em;
+      font-size:12px;font-weight:700
+    }
+    .eyebrow::before{
+      content:"";width:34px;height:1px;
+      background:linear-gradient(90deg,var(--purple),var(--blue))
     }
 
-    nav a {
-      transition: .25s ease;
+    h1{
+      font-size:clamp(56px,6.2vw,100px);line-height:.96;
+      letter-spacing:-.055em;max-width:850px;font-weight:800
     }
 
-    nav a:hover {
-      color: white;
+    .gradient-text{
+      display:block;color:transparent;
+      background:linear-gradient(90deg,#9b69ff 0%,#6f73ff 38%,#21a9ff 100%);
+      -webkit-background-clip:text;background-clip:text
     }
 
-    .nav-cta {
-      padding: 12px 20px;
-      border: 1px solid rgba(255,255,255,.16);
-      border-radius: 12px;
-      background: rgba(255,255,255,.035);
+    .hero-copy p{
+      margin-top:32px;max-width:660px;color:var(--muted);
+      font-size:18px;line-height:1.75
     }
 
-    /* HERO */
+    .actions{display:flex;align-items:center;gap:16px;margin-top:40px;flex-wrap:wrap}
+    .btn{
+      min-height:52px;padding:0 25px;border-radius:12px;
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      border:0;color:white;font-size:14px;font-weight:700;cursor:pointer;
+      transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease
+    }
+    .btn:hover{transform:translateY(-3px)}
+    .btn-primary{
+      background:linear-gradient(135deg,#6d5cff,#168cff);
+      box-shadow:0 15px 45px rgba(40,100,255,.22)
+    }
+    .btn-primary:hover{box-shadow:0 20px 55px rgba(40,100,255,.35)}
+    .btn-secondary{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.035)}
 
-    .hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding-top: 92px;
-      overflow: hidden;
+    .hero-visual{
+      position:relative;min-height:650px;
+      display:flex;align-items:center;justify-content:center
+    }
+    .logo-orbit{
+      position:relative;width:min(620px,46vw);aspect-ratio:1;
+      display:flex;align-items:center;justify-content:center
+    }
+    .logo-orbit::before{
+      content:"";position:absolute;width:82%;height:82%;border-radius:50%;
+      border:1px solid rgba(70,148,255,.12);
+      box-shadow:0 0 100px rgba(34,130,255,.07),inset 0 0 100px rgba(90,68,255,.04);
+      animation:pulse 5s ease-in-out infinite
+    }
+    .logo-orbit::after{
+      content:"";position:absolute;width:105%;height:105%;border-radius:50%;
+      background:radial-gradient(circle,rgba(33,143,255,.12),transparent 60%);
+      filter:blur(25px)
+    }
+    .hero-logo{
+      position:relative;z-index:4;width:82%;height:auto;object-fit:contain;
+      filter:drop-shadow(0 0 20px rgba(79,89,255,.22)) drop-shadow(0 0 55px rgba(26,145,255,.15));
+      animation:floatLogo 5.5s ease-in-out infinite
+    }
+    .glow{
+      position:absolute;width:360px;height:360px;border-radius:50%;
+      background:rgba(46,118,255,.13);filter:blur(100px);z-index:1;
+      animation:glowMove 7s ease-in-out infinite alternate
+    }
+    .particle{
+      position:absolute;width:4px;height:4px;background:#4dafff;border-radius:50%;
+      box-shadow:0 0 15px #4dafff;opacity:.55
+    }
+    .p1{top:20%;left:8%;animation:particleMove 6s infinite ease-in-out}
+    .p2{top:72%;right:5%;animation:particleMove 8s infinite ease-in-out reverse}
+    .p3{top:15%;right:20%;animation:particleMove 7s infinite ease-in-out}
+    .p4{bottom:12%;left:22%;animation:particleMove 9s infinite ease-in-out reverse}
+
+    .section{position:relative;padding:120px 0;border-top:1px solid rgba(255,255,255,.05)}
+    .container{width:min(1280px,calc(100% - 70px));margin:auto}
+    .section-label{
+      color:#8d97a8;font-size:12px;font-weight:700;text-transform:uppercase;
+      letter-spacing:.18em;margin-bottom:18px
+    }
+    .section h2{
+      font-size:clamp(38px,5vw,68px);letter-spacing:-.04em;
+      line-height:1.05;max-width:900px
+    }
+    .section-intro{
+      color:var(--muted);font-size:17px;line-height:1.75;
+      max-width:760px;margin-top:24px
     }
 
-    .hero-inner {
-      position: relative;
-      z-index: 5;
-      width: min(1380px, calc(100% - 70px));
-      margin: auto;
-      display: grid;
-      grid-template-columns: 1.05fr .95fr;
-      align-items: center;
-      min-height: calc(100vh - 92px);
-      gap: 30px;
+    .cards{
+      display:grid;grid-template-columns:repeat(4,1fr);
+      gap:18px;margin-top:55px
+    }
+    .card{
+      min-height:320px;padding:30px;border-radius:22px;border:1px solid var(--line);
+      background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));
+      transition:.3s ease
+    }
+    .card:hover{
+      transform:translateY(-7px);border-color:rgba(91,119,255,.35);
+      box-shadow:0 30px 70px rgba(0,0,0,.25)
+    }
+    .card-number{font-size:12px;color:#737e90;font-weight:700;letter-spacing:.12em}
+    .card h3{font-size:24px;margin-top:65px;letter-spacing:-.025em}
+    .card p{margin-top:14px;color:#929bab;line-height:1.7;font-size:14px}
+    .service-chip{
+      display:inline-flex;margin-top:22px;padding:7px 10px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.08);font-size:11px;color:#98a2b2
     }
 
-    .hero-copy {
-      padding: 60px 0;
-      max-width: 760px;
+    .lab-grid{
+      display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:55px
     }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 26px;
-      color: #c7cbd3;
-      text-transform: uppercase;
-      letter-spacing: .17em;
-      font-size: 12px;
-      font-weight: 700;
+    .product-card{
+      position:relative;min-height:520px;padding:42px;border-radius:30px;
+      border:1px solid rgba(255,255,255,.09);overflow:hidden;
+      background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018))
     }
-
-    .eyebrow::before {
-      content: "";
-      width: 34px;
-      height: 1px;
-      background: linear-gradient(90deg, var(--purple), var(--blue));
+    .product-card::before{
+      content:"";position:absolute;width:360px;height:360px;border-radius:50%;
+      right:-100px;top:-120px;filter:blur(90px);opacity:.34
     }
-
-    h1 {
-      font-size: clamp(56px, 6.2vw, 100px);
-      line-height: .96;
-      letter-spacing: -.055em;
-      max-width: 850px;
-      font-weight: 800;
+    .product-card.revora-card::before{background:#258dff}
+    .product-card.coloria-card::before{background:#865cff}
+    .product-top{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .status{
+      display:inline-flex;align-items:center;gap:8px;padding:8px 12px;
+      border:1px solid rgba(255,255,255,.10);border-radius:999px;
+      background:rgba(255,255,255,.035);font-size:11px;font-weight:700;
+      letter-spacing:.09em;text-transform:uppercase;color:#b8c1cf
     }
+    .status::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--success);box-shadow:0 0 12px var(--success)}
+    .product-mark{
+      position:relative;z-index:2;height:160px;margin-top:52px;
+      display:flex;align-items:center
+    }
+    .product-mark img{max-width:170px;max-height:150px;object-fit:contain;filter:drop-shadow(0 18px 35px rgba(0,0,0,.3))}
+    .revora-word{font-size:clamp(48px,6vw,78px);font-weight:900;letter-spacing:-.06em}
+    .coloria-word{
+      font-size:clamp(48px,6vw,78px);font-weight:900;letter-spacing:-.06em;
+      color:transparent;background:linear-gradient(90deg,#ff5db1,#9d62ff,#28aaff,#57e5bd);
+      -webkit-background-clip:text;background-clip:text
+    }
+    .product-card h3{position:relative;z-index:2;font-size:27px;line-height:1.2;margin-top:20px;max-width:520px}
+    .product-card p{position:relative;z-index:2;color:#9ba5b4;line-height:1.75;margin-top:16px;max-width:560px}
+    .product-foot{
+      position:absolute;z-index:2;left:42px;right:42px;bottom:36px;
+      display:flex;align-items:center;justify-content:space-between;color:#778294;font-size:12px
+    }
+    .spoiler{color:#aab4ff;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
 
-    .gradient-text {
-      display: block;
-      color: transparent;
+    .about-grid{
+      display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:start
+    }
+    .about-copy{color:var(--muted);font-size:17px;line-height:1.8}
+    .about-copy p+p{margin-top:18px}
+    .about-points{
+      display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:34px
+    }
+    .about-point{
+      padding:22px;border-radius:18px;border:1px solid var(--line);
+      background:rgba(255,255,255,.025)
+    }
+    .about-point strong{display:block;font-size:20px}
+    .about-point span{display:block;margin-top:8px;color:#8d97a8;font-size:13px;line-height:1.5}
+
+    .project-wrap{
+      position:relative;padding:56px;border-radius:32px;border:1px solid rgba(255,255,255,.09);
       background:
-        linear-gradient(
-          90deg,
-          #9b69ff 0%,
-          #6f73ff 38%,
-          #21a9ff 100%
-        );
-      -webkit-background-clip: text;
-      background-clip: text;
+        radial-gradient(circle at 90% 10%,rgba(31,140,255,.14),transparent 32%),
+        radial-gradient(circle at 10% 90%,rgba(123,92,255,.11),transparent 32%),
+        rgba(255,255,255,.025)
+    }
+    .project-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:60px;margin-top:46px;align-items:start}
+    .project-note{
+      color:#9ba5b4;line-height:1.75;font-size:15px;
+      padding:24px;border-left:1px solid rgba(113,101,255,.5)
+    }
+    .project-note strong{color:white}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .field{display:flex;flex-direction:column;gap:8px}
+    .field.full{grid-column:1/-1}
+    .field label{font-size:12px;font-weight:700;color:#9da7b7;letter-spacing:.04em}
+    .field input,.field select,.field textarea{
+      width:100%;border:1px solid rgba(255,255,255,.10);outline:none;
+      border-radius:13px;background:rgba(5,8,13,.72);color:white;padding:15px 16px;
+      transition:.2s ease
+    }
+    .field textarea{min-height:130px;resize:vertical}
+    .field input:focus,.field select:focus,.field textarea:focus{
+      border-color:rgba(65,145,255,.65);box-shadow:0 0 0 3px rgba(65,145,255,.08)
+    }
+    .form-actions{display:flex;gap:12px;align-items:center;margin-top:18px;flex-wrap:wrap}
+    .email-link{color:#9ba5b4;font-size:13px}
+    .email-link:hover{color:white}
+
+    footer{
+      padding:35px 0 45px;border-top:1px solid rgba(255,255,255,.06);
+      color:#707988;font-size:13px
+    }
+    .footer-inner{
+      width:min(1280px,calc(100% - 70px));margin:auto;
+      display:flex;justify-content:space-between;align-items:center;gap:20px
     }
 
-    .hero-copy p {
-      margin-top: 32px;
-      max-width: 660px;
-      color: var(--muted);
-      font-size: 18px;
-      line-height: 1.75;
+    @keyframes floatLogo{
+      0%,100%{transform:translateY(0) rotate(-1deg)}
+      50%{transform:translateY(-18px) rotate(1deg)}
+    }
+    @keyframes pulse{
+      0%,100%{transform:scale(1);opacity:.6}
+      50%{transform:scale(1.045);opacity:1}
+    }
+    @keyframes glowMove{
+      from{transform:translate(-40px,-20px) scale(.9)}
+      to{transform:translate(40px,30px) scale(1.15)}
+    }
+    @keyframes particleMove{
+      0%,100%{transform:translate(0,0);opacity:.25}
+      50%{transform:translate(25px,-30px);opacity:.8}
     }
 
-    .actions {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-top: 40px;
-      flex-wrap: wrap;
+    @media(max-width:1100px){
+      .cards{grid-template-columns:1fr 1fr}
+      nav{gap:22px}
+      .project-grid,.about-grid{grid-template-columns:1fr;gap:35px}
     }
 
-    .btn {
-      min-height: 52px;
-      padding: 0 25px;
-      border-radius: 12px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      font-size: 14px;
-      font-weight: 700;
-      transition:
-        transform .25s ease,
-        box-shadow .25s ease,
-        border-color .25s ease;
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #6d5cff, #168cff);
-      box-shadow: 0 15px 45px rgba(40,100,255,.22);
-    }
-
-    .btn-primary:hover {
-      box-shadow: 0 20px 55px rgba(40,100,255,.35);
-    }
-
-    .btn-secondary {
-      border: 1px solid rgba(255,255,255,.16);
-      background: rgba(255,255,255,.035);
-    }
-
-    /* LOGO GRANDE */
-
-    .hero-visual {
-      position: relative;
-      min-height: 650px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .logo-orbit {
-      position: relative;
-      width: min(620px, 46vw);
-      aspect-ratio: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .logo-orbit::before {
-      content: "";
-      position: absolute;
-      width: 82%;
-      height: 82%;
-      border-radius: 50%;
-      border: 1px solid rgba(70,148,255,.12);
-      box-shadow:
-        0 0 100px rgba(34,130,255,.07),
-        inset 0 0 100px rgba(90,68,255,.04);
-      animation: pulse 5s ease-in-out infinite;
-    }
-
-    .logo-orbit::after {
-      content: "";
-      position: absolute;
-      width: 105%;
-      height: 105%;
-      border-radius: 50%;
-      background:
-        radial-gradient(circle, rgba(33,143,255,.12), transparent 60%);
-      filter: blur(25px);
-    }
-
-    .hero-logo {
-      position: relative;
-      z-index: 4;
-      width: 82%;
-      height: auto;
-      object-fit: contain;
-      filter:
-        drop-shadow(0 0 20px rgba(79,89,255,.22))
-        drop-shadow(0 0 55px rgba(26,145,255,.15));
-      animation: floatLogo 5.5s ease-in-out infinite;
-    }
-
-    .glow {
-      position: absolute;
-      width: 360px;
-      height: 360px;
-      border-radius: 50%;
-      background: rgba(46,118,255,.13);
-      filter: blur(100px);
-      z-index: 1;
-      animation: glowMove 7s ease-in-out infinite alternate;
-    }
-
-    .particle {
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      background: #4dafff;
-      border-radius: 50%;
-      box-shadow: 0 0 15px #4dafff;
-      opacity: .55;
-    }
-
-    .p1 {
-      top: 20%;
-      left: 8%;
-      animation: particleMove 6s infinite ease-in-out;
-    }
-
-    .p2 {
-      top: 72%;
-      right: 5%;
-      animation: particleMove 8s infinite ease-in-out reverse;
-    }
-
-    .p3 {
-      top: 15%;
-      right: 20%;
-      animation: particleMove 7s infinite ease-in-out;
-    }
-
-    .p4 {
-      bottom: 12%;
-      left: 22%;
-      animation: particleMove 9s infinite ease-in-out reverse;
-    }
-
-    /* SEÇÃO PRODUTOS */
-
-    .section {
-      position: relative;
-      padding: 120px 0;
-      border-top: 1px solid rgba(255,255,255,.05);
-    }
-
-    .container {
-      width: min(1280px, calc(100% - 70px));
-      margin: auto;
-    }
-
-    .section-label {
-      color: #8d97a8;
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .18em;
-      margin-bottom: 18px;
-    }
-
-    .section h2 {
-      font-size: clamp(38px, 5vw, 68px);
-      letter-spacing: -.04em;
-      line-height: 1.05;
-      max-width: 850px;
-    }
-
-    .section-intro {
-      color: var(--muted);
-      font-size: 17px;
-      line-height: 1.75;
-      max-width: 700px;
-      margin-top: 24px;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      margin-top: 55px;
-    }
-
-    .card {
-      min-height: 300px;
-      padding: 30px;
-      border-radius: 22px;
-      border: 1px solid var(--line);
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255,255,255,.055),
-          rgba(255,255,255,.018)
-        );
-      transition: .3s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-7px);
-      border-color: rgba(91,119,255,.35);
-      box-shadow: 0 30px 70px rgba(0,0,0,.25);
-    }
-
-    .card-number {
-      font-size: 12px;
-      color: #737e90;
-      font-weight: 700;
-      letter-spacing: .12em;
-    }
-
-    .card h3 {
-      font-size: 25px;
-      margin-top: 75px;
-      letter-spacing: -.025em;
-    }
-
-    .card p {
-      margin-top: 14px;
-      color: #929bab;
-      line-height: 1.7;
-      font-size: 14px;
-    }
-
-    /* REVORA */
-
-    .revora {
-      overflow: hidden;
-    }
-
-    .revora-box {
-      position: relative;
-      min-height: 460px;
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 30px;
-      padding: 60px;
-      background:
-        radial-gradient(circle at 85% 20%, rgba(32,132,255,.15), transparent 30%),
-        radial-gradient(circle at 65% 100%, rgba(120,75,255,.10), transparent 35%),
-        rgba(255,255,255,.025);
-      overflow: hidden;
-    }
-
-    .revora-box::after {
-      content: "REVORA";
-      position: absolute;
-      right: -15px;
-      bottom: -30px;
-      font-size: clamp(90px, 14vw, 210px);
-      font-weight: 900;
-      letter-spacing: -.08em;
-      color: rgba(255,255,255,.025);
-    }
-
-    .revora-tag {
-      display: inline-block;
-      padding: 8px 13px;
-      border: 1px solid rgba(92,116,255,.25);
-      border-radius: 999px;
-      color: #aab4ff;
-      background: rgba(88,85,255,.08);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-
-    .revora h2 {
-      margin-top: 24px;
-    }
-
-    /* CONTATO */
-
-    .contact {
-      text-align: center;
-    }
-
-    .contact h2 {
-      margin-inline: auto;
-    }
-
-    .contact .section-intro {
-      margin-inline: auto;
-    }
-
-    .contact .actions {
-      justify-content: center;
-    }
-
-    footer {
-      padding: 35px 0 45px;
-      border-top: 1px solid rgba(255,255,255,.06);
-      color: #707988;
-      font-size: 13px;
-    }
-
-    .footer-inner {
-      width: min(1280px, calc(100% - 70px));
-      margin: auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-    }
-
-    /* ANIMAÇÕES */
-
-    @keyframes floatLogo {
-      0%, 100% {
-        transform: translateY(0) rotate(-1deg);
+    @media(max-width:900px){
+      .nav{width:min(100% - 34px,1380px);height:78px}
+      .brand img{width:155px}
+      nav a:not(.nav-cta){display:none}
+      .hero{padding-top:78px}
+      .hero-inner{
+        width:min(100% - 34px,1380px);grid-template-columns:1fr;
+        text-align:center;padding-top:40px
       }
-      50% {
-        transform: translateY(-18px) rotate(1deg);
-      }
+      .hero-copy{margin:auto;padding-bottom:0}
+      .eyebrow,.actions{justify-content:center}
+      h1{font-size:clamp(48px,13vw,76px)}
+      .hero-copy p{margin-inline:auto;font-size:16px}
+      .hero-visual{min-height:470px}
+      .logo-orbit{width:min(480px,92vw)}
+      .container{width:min(100% - 34px,1280px)}
+      .section{padding:90px 0}
+      .lab-grid{grid-template-columns:1fr}
+      .project-wrap{padding:36px 24px}
+      .footer-inner{width:min(100% - 34px,1280px);flex-direction:column;text-align:center}
     }
 
-    @keyframes pulse {
-      0%, 100% {
-        transform: scale(1);
-        opacity: .6;
-      }
-      50% {
-        transform: scale(1.045);
-        opacity: 1;
-      }
-    }
-
-    @keyframes glowMove {
-      from {
-        transform: translate(-40px, -20px) scale(.9);
-      }
-      to {
-        transform: translate(40px, 30px) scale(1.15);
-      }
-    }
-
-    @keyframes particleMove {
-      0%, 100% {
-        transform: translate(0,0);
-        opacity: .25;
-      }
-      50% {
-        transform: translate(25px,-30px);
-        opacity: .8;
-      }
-    }
-
-    /* RESPONSIVO */
-
-    @media (max-width: 900px) {
-      .nav {
-        width: min(100% - 34px, 1380px);
-        height: 78px;
-      }
-
-      .brand img {
-        width: 165px;
-      }
-
-      nav a:not(.nav-cta) {
-        display: none;
-      }
-
-      .hero {
-        padding-top: 78px;
-      }
-
-      .hero-inner {
-        width: min(100% - 34px, 1380px);
-        grid-template-columns: 1fr;
-        text-align: center;
-        padding-top: 40px;
-      }
-
-      .hero-copy {
-        margin: auto;
-        padding-bottom: 0;
-      }
-
-      .eyebrow {
-        justify-content: center;
-      }
-
-      h1 {
-        font-size: clamp(48px, 13vw, 76px);
-      }
-
-      .hero-copy p {
-        margin-inline: auto;
-        font-size: 16px;
-      }
-
-      .actions {
-        justify-content: center;
-      }
-
-      .hero-visual {
-        min-height: 470px;
-      }
-
-      .logo-orbit {
-        width: min(480px, 92vw);
-      }
-
-      .cards {
-        grid-template-columns: 1fr;
-      }
-
-      .container {
-        width: min(100% - 34px, 1280px);
-      }
-
-      .section {
-        padding: 90px 0;
-      }
-
-      .revora-box {
-        padding: 38px 25px;
-      }
-
-      .footer-inner {
-        width: min(100% - 34px, 1280px);
-        flex-direction: column;
-        text-align: center;
-      }
-    }
-
-    @media (max-width: 520px) {
-      .nav-cta {
-        padding: 10px 14px;
-        font-size: 12px;
-      }
-
-      .brand img {
-        width: 145px;
-      }
-
-      .hero-inner {
-        padding-top: 25px;
-      }
-
-      .hero-copy {
-        padding-top: 45px;
-      }
-
-      h1 {
-        font-size: clamp(43px, 13vw, 62px);
-      }
-
-      .hero-visual {
-        min-height: 390px;
-      }
-
-      .logo-orbit {
-        width: 105vw;
-      }
-
-      .hero-logo {
-        width: 76%;
-      }
+    @media(max-width:620px){
+      .cards,.form-grid,.about-points{grid-template-columns:1fr}
+      .field.full{grid-column:auto}
+      .card{min-height:270px}
+      .card h3{margin-top:45px}
+      .product-card{min-height:500px;padding:28px}
+      .product-foot{left:28px;right:28px}
+      .nav-cta{padding:10px 13px;font-size:12px}
+      .brand img{width:140px}
+      .hero-copy{padding-top:45px}
+      h1{font-size:clamp(43px,13vw,62px)}
+      .hero-visual{min-height:390px}
+      .logo-orbit{width:105vw}
+      .hero-logo{width:76%}
     }
   </style>
 </head>
 
 <body>
-
   <header>
     <div class="nav">
       <a class="brand" href="#inicio" aria-label="Vibe Studio Labs">
-        <img
-          src="vibe_logo_completa.png"
-          alt="Vibe Studio Labs"
-        >
+        <img src="vibe_logo_completa.png" alt="Vibe Studio Labs">
       </a>
 
       <nav>
         <a href="#inicio">Início</a>
-        <a href="#produtos">Produtos</a>
         <a href="#servicos">Serviços</a>
+        <a href="#produtos">Produtos</a>
         <a href="#sobre">Sobre</a>
-        <a class="nav-cta" href="#contato">Fale com a Vibe</a>
+        <a class="nav-cta" href="#projeto">Solicite seu projeto</a>
       </nav>
     </div>
   </header>
 
   <main>
-
     <section class="hero" id="inicio">
       <div class="hero-inner">
-
         <div class="hero-copy">
           <div class="eyebrow">Vibe Studio Labs</div>
-
           <h1>
             Tecnologia que
             <span class="gradient-text">vira produto.</span>
           </h1>
 
           <p>
-            Criamos produtos digitais, sistemas inteligentes,
-            automações e experiências que transformam ideias
-            em soluções reais.
+            Criamos produtos digitais, sistemas inteligentes, automações e experiências
+            que transformam ideias em soluções reais.
           </p>
 
           <div class="actions">
-            <a class="btn btn-primary" href="#produtos">
-              Conheça nossos produtos
-              <span>→</span>
-            </a>
-
-            <a class="btn btn-secondary" href="#contato">
-              Fale com a Vibe
-            </a>
+            <a class="btn btn-primary" href="#produtos">Conheça nossos produtos <span>→</span></a>
+            <a class="btn btn-secondary" href="#projeto">Solicite seu projeto</a>
           </div>
         </div>
 
         <div class="hero-visual">
           <div class="glow"></div>
-
           <span class="particle p1"></span>
           <span class="particle p2"></span>
           <span class="particle p3"></span>
           <span class="particle p4"></span>
 
           <div class="logo-orbit">
-            <img
-              class="hero-logo"
-              src="vibe_simbolo_colorido.png"
-              alt="Símbolo Vibe Studio Labs"
-            >
+            <img class="hero-logo" src="vibe_simbolo_colorido.png" alt="Símbolo Vibe Studio Labs">
           </div>
         </div>
-
       </div>
     </section>
 
-    <section class="section" id="produtos">
+    <section class="section" id="servicos">
       <div class="container">
-
-        <div class="section-label">O que construímos</div>
-
-        <h2>
-          Tecnologia pensada para
-          resolver problemas reais.
-        </h2>
-
+        <div class="section-label">O que fazemos</div>
+        <h2>Tecnologia e estratégia para transformar ideias em resultado.</h2>
         <p class="section-intro">
-          Da ideia ao produto, criamos soluções digitais com foco
-          em experiência, eficiência e resultado.
+          Da criação de um produto digital à aquisição de novos clientes, unimos tecnologia,
+          design, automação e performance em soluções pensadas para cada negócio.
         </p>
 
         <div class="cards">
-
           <article class="card">
             <div class="card-number">01 — PRODUTOS</div>
             <h3>Produtos digitais</h3>
-            <p>
-              Transformamos ideias em softwares e plataformas
-              prontas para uso, crescimento e evolução.
-            </p>
+            <p>Aplicativos, plataformas e soluções digitais construídas para sair da ideia e virar produto.</p>
+            <span class="service-chip">Apps · Plataformas · MVPs</span>
           </article>
 
-          <article class="card" id="servicos">
-            <div class="card-number">02 — AUTOMAÇÃO</div>
-            <h3>Sistemas inteligentes</h3>
-            <p>
-              Criamos ferramentas que simplificam processos,
-              organizam operações e reduzem trabalho manual.
-            </p>
+          <article class="card">
+            <div class="card-number">02 — SISTEMAS</div>
+            <h3>Sistemas & automação</h3>
+            <p>Ferramentas sob medida para organizar operações, integrar processos e reduzir trabalho manual.</p>
+            <span class="service-chip">Sistemas · Integrações · Automação</span>
           </article>
 
           <article class="card">
             <div class="card-number">03 — EXPERIÊNCIAS</div>
             <h3>Experiências digitais</h3>
-            <p>
-              Sites, interfaces e experiências modernas que unem
-              identidade, tecnologia e performance.
-            </p>
+            <p>Sites e interfaces modernas que combinam identidade, usabilidade e performance.</p>
+            <span class="service-chip">Sites · UI/UX · Landing pages</span>
           </article>
 
+          <article class="card">
+            <div class="card-number">04 — PERFORMANCE</div>
+            <h3>Tráfego pago</h3>
+            <p>Estratégia, campanhas e otimização de mídia para gerar alcance, oportunidades e resultado.</p>
+            <span class="service-chip">Meta Ads · Google Ads · Performance</span>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="section revora" id="sobre">
+    <section class="section" id="produtos">
       <div class="container">
-
-        <div class="revora-box">
-          <span class="revora-tag">Produto Vibe Studio Labs</span>
-
-          <h2>REVORA</h2>
-
-          <p class="section-intro">
-            Tecnologia criada para transformar gestão em uma
-            experiência mais simples, visual e inteligente.
-            Um produto desenvolvido pela Vibe Studio Labs.
-          </p>
-
-          <div class="actions">
-            <a class="btn btn-primary" href="#contato">
-              Conhecer o REVORA
-              <span>→</span>
-            </a>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="section contact" id="contato">
-      <div class="container">
-
-        <div class="section-label">Vamos criar?</div>
-
-        <h2>
-          Tem uma ideia?<br>
-          A gente transforma em produto.
-        </h2>
-
+        <div class="section-label">Dentro do Lab</div>
+        <h2>Produtos próprios. Ideias que estamos transformando em realidade.</h2>
         <p class="section-intro">
-          Tecnologia, produto e experiência trabalhando juntos
-          para construir algo que faça sentido de verdade.
+          Alguns projetos ainda estão sendo construídos. Por enquanto, só um spoiler do que vem por aí.
         </p>
 
-        <div class="actions">
-          <a
-            class="btn btn-primary"
-            href="mailto:contato@vibestudiolabs.com"
-          >
-            Fale com a Vibe
-            <span>→</span>
-          </a>
-        </div>
+        <div class="lab-grid">
+          <article class="product-card revora-card">
+            <div class="product-top">
+              <span class="status">Em desenvolvimento</span>
+              <span class="spoiler">Produto Vibe</span>
+            </div>
 
+            <div class="product-mark">
+              <img src="revora_logo.png" alt="REVORA">
+            </div>
+
+            <h3>Gestão hoteleira está prestes a ganhar uma nova experiência.</h3>
+            <p>
+              Uma solução criada para tornar a operação mais visual, organizada e inteligente.
+              O restante, por enquanto, fica dentro do Lab.
+            </p>
+
+            <div class="product-foot">
+              <span>REVORA</span>
+              <span>Em breve →</span>
+            </div>
+          </article>
+
+          <article class="product-card coloria-card">
+            <div class="product-top">
+              <span class="status">Em desenvolvimento</span>
+              <span class="spoiler">Produto Vibe</span>
+            </div>
+
+            <div class="product-mark">
+              <div class="coloria-word">COLORIA</div>
+            </div>
+
+            <h3>Criatividade também pode virar tecnologia.</h3>
+            <p>
+              Uma experiência digital de pintura e interação criada para transformar cores,
+              desenhos e imaginação em momentos de diversão. Mais detalhes? Ainda não. :)
+            </p>
+
+            <div class="product-foot">
+              <span>COLORIA</span>
+              <span>Um pouco de cor está chegando →</span>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
+    <section class="section" id="sobre">
+      <div class="container">
+        <div class="about-grid">
+          <div>
+            <div class="section-label">Vibe Studio Labs</div>
+            <h2>Construímos, testamos e transformamos ideias em soluções reais.</h2>
+          </div>
+
+          <div class="about-copy">
+            <p>
+              A Vibe Studio Labs nasce da união entre tecnologia, produto, experiência digital
+              e visão de negócio. Criamos soluções próprias e também desenvolvemos projetos
+              personalizados para empresas e empreendedores.
+            </p>
+            <p>
+              Não precisa chegar com tudo definido. Uma necessidade, um processo que poderia
+              funcionar melhor ou uma ideia ainda no papel já é um bom começo.
+            </p>
+
+            <div class="about-points">
+              <div class="about-point">
+                <strong>Produto</strong>
+                <span>Da ideia ao software utilizável.</span>
+              </div>
+              <div class="about-point">
+                <strong>Estratégia</strong>
+                <span>Tecnologia alinhada ao objetivo do negócio.</span>
+              </div>
+              <div class="about-point">
+                <strong>Experiência</strong>
+                <span>Interfaces pensadas para pessoas reais.</span>
+              </div>
+              <div class="about-point">
+                <strong>Evolução</strong>
+                <span>Projetos preparados para crescer.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="projeto">
+      <div class="container">
+        <div class="project-wrap">
+          <div class="section-label">Solicite seu projeto personalizado</div>
+          <h2>Tem uma ideia? A gente transforma em produto.</h2>
+          <p class="section-intro">
+            Conte para a Vibe o que você precisa. Pode ser um sistema, aplicativo, automação,
+            site, estratégia digital ou uma ideia que ainda está no papel.
+          </p>
+
+          <div class="project-grid">
+            <div class="project-note">
+              <strong>Você não precisa ter o projeto pronto.</strong><br><br>
+              Explique o problema, a necessidade ou a ideia. A Vibe ajuda a organizar o caminho
+              e entender qual solução faz mais sentido.
+              <br><br>
+              Ao enviar, abriremos o WhatsApp com as informações do projeto já preenchidas.
+            </div>
+
+            <form id="projectForm">
+              <div class="form-grid">
+                <div class="field">
+                  <label for="nome">SEU NOME</label>
+                  <input id="nome" name="nome" type="text" placeholder="Como podemos te chamar?" required>
+                </div>
+
+                <div class="field">
+                  <label for="empresa">EMPRESA / MARCA</label>
+                  <input id="empresa" name="empresa" type="text" placeholder="Opcional">
+                </div>
+
+                <div class="field">
+                  <label for="tipo">TIPO DE PROJETO</label>
+                  <select id="tipo" name="tipo" required>
+                    <option value="">Selecione</option>
+                    <option>Sistema personalizado</option>
+                    <option>Aplicativo</option>
+                    <option>Site / Landing page</option>
+                    <option>Automação</option>
+                    <option>Tráfego pago</option>
+                    <option>Outro / Ainda não sei</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="contato">SEU WHATSAPP OU E-MAIL</label>
+                  <input id="contato" name="contato" type="text" placeholder="Para retornarmos o contato" required>
+                </div>
+
+                <div class="field full">
+                  <label for="descricao">CONTE UM POUCO SOBRE A IDEIA</label>
+                  <textarea id="descricao" name="descricao" placeholder="O que você gostaria de criar ou resolver?" required></textarea>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button class="btn btn-primary" type="submit">Enviar projeto pelo WhatsApp <span>→</span></button>
+                <a class="email-link" href="mailto:vibestudioadm@gmail.com">ou vibestudioadm@gmail.com</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer>
@@ -845,5 +626,31 @@
     </div>
   </footer>
 
+  <script>
+    document.getElementById("projectForm").addEventListener("submit", function(event){
+      event.preventDefault();
+
+      const nome = document.getElementById("nome").value.trim();
+      const empresa = document.getElementById("empresa").value.trim() || "Não informado";
+      const tipo = document.getElementById("tipo").value;
+      const contato = document.getElementById("contato").value.trim();
+      const descricao = document.getElementById("descricao").value.trim();
+
+      const mensagem =
+`Olá! Vim pelo site da Vibe Studio Labs e gostaria de solicitar um projeto.
+
+Nome: ${nome}
+Empresa/Marca: ${empresa}
+Tipo de projeto: ${tipo}
+Contato: ${contato}
+
+Sobre a ideia:
+${descricao}`;
+
+      const numero = "5574933002683";
+      const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+      window.open(url, "_blank", "noopener,noreferrer");
+    });
+  </script>
 </body>
 </html>
