@@ -465,10 +465,45 @@
       }
     }
 
+  
+    /* === AJUSTES FINAIS VIBE — prioridade máxima === */
+
+    /* COLORIA: sequência idêntica ao wordmark do logo */
+    .product-card.coloria-card .coloria-name span:nth-child(1){color:#f94b9b !important} /* C rosa */
+    .product-card.coloria-card .coloria-name span:nth-child(2){color:#ff9820 !important} /* O laranja */
+    .product-card.coloria-card .coloria-name span:nth-child(3){color:#ffd128 !important} /* L amarelo */
+    .product-card.coloria-card .coloria-name span:nth-child(4){color:#59d94a !important} /* O verde */
+    .product-card.coloria-card .coloria-name span:nth-child(5){color:#18a9f5 !important} /* R azul */
+    .product-card.coloria-card .coloria-name span:nth-child(6){color:#745cf5 !important} /* I roxo */
+    .product-card.coloria-card .coloria-name span:nth-child(7){color:#eb52bd !important} /* A rosa */
+
+    @media(max-width:620px){
+      /* O círculo fica onde está. Só o PNG do V recebe correção óptica. */
+      .logo-orbit{
+        left:0 !important;
+        top:0 !important;
+      }
+      .hero-logo{
+        position:relative !important;
+        left:18px !important;
+        top:24px !important;
+      }
+    }
+
+  
+    /* COLORIA — sequência visual do logo original */
+    .product-card.coloria-card .coloria-name span:nth-child(1){color:#f43f87 !important}
+    .product-card.coloria-card .coloria-name span:nth-child(2){color:#ff9b20 !important}
+    .product-card.coloria-card .coloria-name span:nth-child(3){color:#79d63c !important}
+    .product-card.coloria-card .coloria-name span:nth-child(4){color:#24bde9 !important}
+    .product-card.coloria-card .coloria-name span:nth-child(5){color:#159fe8 !important}
+    .product-card.coloria-card .coloria-name span:nth-child(6){color:#7457ef !important}
+    .product-card.coloria-card .coloria-name span:nth-child(7){color:#ed4faf !important}
+
   </style>
 </head>
 
-<body>
+<body data-vibe-version="1.0.3">
   <header>
     <div class="nav">
       <a class="brand" href="#inicio" aria-label="Vibe Studio Labs">
