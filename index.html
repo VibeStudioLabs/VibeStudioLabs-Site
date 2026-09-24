@@ -210,7 +210,8 @@
     .product-card{
       position:relative;min-height:520px;padding:42px;border-radius:30px;
       border:1px solid rgba(255,255,255,.09);overflow:hidden;
-      background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018))
+      background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));
+      display:flex;flex-direction:column
     }
     .product-card::before{
       content:"";position:absolute;width:360px;height:360px;border-radius:50%;
@@ -231,17 +232,17 @@
       display:flex;align-items:center
     }
     .product-mark img{max-width:170px;max-height:150px;object-fit:contain;filter:drop-shadow(0 18px 35px rgba(0,0,0,.3))}
-    .revora-word{font-size:clamp(48px,6vw,78px);font-weight:900;letter-spacing:-.06em}
-    .coloria-word{
-      font-size:clamp(48px,6vw,78px);font-weight:900;letter-spacing:-.06em;
-      color:transparent;background:linear-gradient(90deg,#ff5db1,#9d62ff,#28aaff,#57e5bd);
-      -webkit-background-clip:text;background-clip:text
+    .coloria-card .product-mark img{
+      max-width:260px;max-height:175px;
+      filter:drop-shadow(0 18px 35px rgba(0,0,0,.28))
     }
+    .revora-word{font-size:clamp(48px,6vw,78px);font-weight:900;letter-spacing:-.06em}
     .product-card h3{position:relative;z-index:2;font-size:27px;line-height:1.2;margin-top:20px;max-width:520px}
     .product-card p{position:relative;z-index:2;color:#9ba5b4;line-height:1.75;margin-top:16px;max-width:560px}
     .product-foot{
-      position:absolute;z-index:2;left:42px;right:42px;bottom:36px;
-      display:flex;align-items:center;justify-content:space-between;color:#778294;font-size:12px
+      position:relative;z-index:2;margin-top:auto;padding-top:28px;
+      display:flex;align-items:center;justify-content:space-between;gap:18px;
+      color:#778294;font-size:12px
     }
     .spoiler{color:#aab4ff;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
 
@@ -350,7 +351,7 @@
       .card{min-height:270px}
       .card h3{margin-top:45px}
       .product-card{min-height:500px;padding:28px}
-      .product-foot{left:28px;right:28px}
+      .product-foot{flex-wrap:wrap;padding-top:24px}
       .nav-cta{padding:10px 13px;font-size:12px}
       .brand img{width:140px}
       .hero-copy{padding-top:45px}
@@ -476,7 +477,7 @@
 
             <h3>Gestão hoteleira está prestes a ganhar uma nova experiência.</h3>
             <p>
-              Uma solução criada para tornar a operação mais visual, organizada e inteligente.
+              Uma nova forma de visualizar, organizar e conduzir a operação hoteleira.
               O restante, por enquanto, fica dentro do Lab.
             </p>
 
@@ -493,18 +494,19 @@
             </div>
 
             <div class="product-mark">
-              <div class="coloria-word">COLORIA</div>
+              <img src="coloria_logo_site.png" alt="COLORIA — Desenhar é só o começo!">
             </div>
 
             <h3>Criatividade também pode virar tecnologia.</h3>
             <p>
-              Uma experiência digital de pintura e interação criada para transformar cores,
-              desenhos e imaginação em momentos de diversão. Mais detalhes? Ainda não. :)
+              COLORIA é um jogo de colorir e pintar criado especialmente para crianças,
+              com uma experiência divertida, intuitiva e cheia de imaginação.
+              Um universo onde desenhos, cores e criatividade ganham vida.
             </p>
 
             <div class="product-foot">
               <span>COLORIA</span>
-              <span>Um pouco de cor está chegando →</span>
+              <span>Desenhar é só o começo! →</span>
             </div>
           </article>
         </div>
