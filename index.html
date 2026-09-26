@@ -575,10 +575,29 @@
       }
     }
 
+  
+    /* === VIBE 1.1 — PROJETOS REALIZADOS === */
+    .portfolio-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:55px}
+    .portfolio-card{position:relative;min-height:650px;border-radius:30px;overflow:hidden;border:1px solid rgba(255,255,255,.09);background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));display:flex;flex-direction:column;transition:.3s ease}
+    .portfolio-card:hover{transform:translateY(-7px);border-color:rgba(91,119,255,.35);box-shadow:0 30px 70px rgba(0,0,0,.25)}
+    .portfolio-visual{position:relative;height:390px;overflow:hidden;background:radial-gradient(circle at 75% 30%,rgba(32,132,255,.20),transparent 34%),linear-gradient(145deg,#0b111c,#07101b)}
+    .portfolio-visual img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s ease}
+    .portfolio-card:hover .portfolio-visual img{transform:scale(1.025)}
+    .portfolio-badge{position:absolute;left:24px;top:24px;z-index:2;display:inline-flex;align-items:center;gap:8px;padding:9px 12px;border:1px solid rgba(255,255,255,.14);border-radius:999px;background:rgba(6,8,12,.70);backdrop-filter:blur(12px);font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+    .portfolio-badge::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--success);box-shadow:0 0 12px var(--success)}
+    .portfolio-content{padding:32px;display:flex;flex:1;flex-direction:column}
+    .portfolio-type{color:#7f8b9d;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+    .portfolio-content h3{font-size:28px;line-height:1.15;letter-spacing:-.03em;margin-top:13px}
+    .portfolio-content p{color:#9ba5b4;line-height:1.72;font-size:14px;margin-top:15px;max-width:560px}
+    .portfolio-link{margin-top:auto;padding-top:28px;display:inline-flex;align-items:center;gap:9px;color:#dce6ff;font-size:13px;font-weight:800;transition:.25s ease}
+    .portfolio-link:hover{color:white;gap:13px}
+    @media(max-width:900px){.portfolio-grid{grid-template-columns:1fr}.portfolio-card{min-height:0}}
+    @media(max-width:620px){.portfolio-grid{margin-top:38px}.portfolio-card{border-radius:24px}.portfolio-visual{height:330px}.portfolio-content{padding:25px}.portfolio-content h3{font-size:24px}.portfolio-badge{left:18px;top:18px}}
+
   </style>
 </head>
 
-<body data-vibe-version="1.0.8">
+<body data-vibe-version="1.1.0">
   <header>
     <div class="nav">
       <a class="brand" href="#inicio" aria-label="Vibe Studio Labs">
@@ -589,6 +608,7 @@
         <a href="#inicio">Início</a>
         <a href="#servicos">Serviços</a>
         <a href="#produtos">Produtos</a>
+        <a href="#realizados">Projetos</a>
         <a href="#sobre">Sobre</a>
         <a class="nav-cta" href="#projeto">Solicite seu projeto</a>
       </nav>
@@ -727,6 +747,24 @@
               <span></span>
               <span>Desenhar é só o começo! →</span>
             </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="realizados">
+      <div class="container">
+        <div class="section-label">Projetos realizados</div>
+        <h2>Soluções que já saíram do Lab e estão em uso.</h2>
+        <p class="section-intro">Projetos reais, desenvolvidos para negócios reais. Conheça algumas experiências digitais entregues pela Vibe Studio Labs e acesse o resultado ao vivo.</p>
+        <div class="portfolio-grid">
+          <article class="portfolio-card">
+            <div class="portfolio-visual"><span class="portfolio-badge">Projeto entregue</span><img src="chez_website_mockup.png" alt="Website Chez Louise et Louis em smartphone" loading="lazy"></div>
+            <div class="portfolio-content"><span class="portfolio-type">Website · Hotelaria</span><h3>Chez Louise et Louis — Website</h3><p>Experiência digital responsiva para apresentar a pousada, suas acomodações, experiências e ofertas, conectando a jornada do visitante ao processo de reserva.</p><a class="portfolio-link" href="https://chezlouiseetlouis.com.br" target="_blank" rel="noopener noreferrer">Ver projeto ao vivo <span>↗</span></a></div>
+          </article>
+          <article class="portfolio-card">
+            <div class="portfolio-visual"><span class="portfolio-badge">Projeto entregue</span><img src="chez_app_mockup.png" alt="Web App Concierge Chez Louise et Louis em smartphone" loading="lazy"></div>
+            <div class="portfolio-content"><span class="portfolio-type">Web App · Experiência do hóspede</span><h3>Chez Louise et Louis — Concierge Digital</h3><p>Web app criado para centralizar informações, serviços e experiências da estadia, oferecendo ao hóspede acesso simples e direto pelo celular.</p><a class="portfolio-link" href="https://chezlouiseetlouis.com" target="_blank" rel="noopener noreferrer">Abrir Web App <span>↗</span></a></div>
           </article>
         </div>
       </div>
