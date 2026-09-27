@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>REVORA — Redefinir senha</title>
+  <link rel="icon" href="../favicon.ico">
+  <style>
+    :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#172033;background:#f5f7fb}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at top,#eef1ff 0,#f7f8fc 38%,#f3f5f9 100%)}
+    .card{width:min(100%,460px);background:#fff;border:1px solid #e7eaf2;border-radius:24px;padding:34px;box-shadow:0 24px 70px rgba(26,35,70,.12)}
+    .brand{display:flex;justify-content:center;margin-bottom:24px}.brand img{max-width:180px;max-height:64px;object-fit:contain}
+    h1{margin:0 0 8px;text-align:center;font-size:25px}.intro{margin:0 0 26px;text-align:center;color:#697386;line-height:1.5}
+    label{display:block;font-weight:650;font-size:14px;margin:16px 0 7px}
+    input{width:100%;border:1px solid #d9deea;border-radius:12px;padding:13px 14px;font:inherit;outline:none}
+    input:focus{border-color:#5d5fef;box-shadow:0 0 0 3px rgba(93,95,239,.12)}
+    button{width:100%;margin-top:22px;border:0;border-radius:12px;padding:14px 16px;font:inherit;font-weight:700;color:#fff;background:linear-gradient(110deg,#182b5b,#4b50e6 58%,#7b4ce3);cursor:pointer}
+    button:disabled{opacity:.6;cursor:not-allowed}
+    .msg{display:none;margin-top:18px;padding:12px 14px;border-radius:12px;font-size:14px;line-height:1.45}
+    .msg.ok{display:block;background:#eefaf3;color:#17663a}.msg.err{display:block;background:#fff1f1;color:#9b2525}
+    .foot{text-align:center;color:#8a93a5;font-size:12px;margin-top:22px}
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="brand"><img src="../revora_logo.png" alt="REVORA"></div>
+    <h1>Crie uma nova senha</h1>
+    <p class="intro">Defina uma nova senha para acessar sua conta REVORA.</p>
+    <form id="reset-form" novalidate hidden>
+      <label for="password">Nova senha</label>
+      <input id="password" type="password" autocomplete="new-password" minlength="8" required>
+      <label for="confirm">Confirmar nova senha</label>
+      <input id="confirm" type="password" autocomplete="new-password" minlength="8" required>
+      <button id="submit" type="submit">Redefinir senha</button>
+    </form>
+    <div id="message" class="msg" role="status" aria-live="polite"></div>
+    <p class="foot">Vibe Studio Labs · REVORA</p>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    // Configuração pública do cliente Supabase.
+    // Os valores serão preenchidos antes da publicação em produção.
+    const SUPABASE_URL = "https://ywspyqcpowjmcwuxczlc.supabase.co";
+    const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_0LNNMkcdo92QpGadR0Nrug_YbsQQ6Dh";
+
+    const form = document.getElementById("reset-form");
+    const button = document.getElementById("submit");
+    const message = document.getElementById("message");
+    let client = null;
+    let recoveryReady = false;
+
+    function showMessage(text, kind) {
+      message.textContent = text;
+      message.className = "msg " + kind;
+    }
+
+    async function initializeRecovery() {
+      const hashParams = new URLSearchParams(window.location.hash.slice(1));
+      const queryParams = new URLSearchParams(window.location.search);
+      const authError = hashParams.get("error_description") || queryParams.get("error_description");
+
+      if (authError) {
+        showMessage("Este link de recuperação é inválido ou expirou. Solicite um novo link pelo REVORA.", "err");
+        return;
+      }
+
+      if (SUPABASE_URL.startsWith("__") || SUPABASE_PUBLISHABLE_KEY.startsWith("__")) {
+        showMessage("Página ainda em configuração. Nenhuma senha foi alterada.", "err");
+        return;
+      }
+
+      client = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+        auth: {
+          persistSession: true,
+          detectSessionInUrl: true
+        }
+      });
+
+      client.auth.onAuthStateChange((event, session) => {
+        if (event === "PASSWORD_RECOVERY" && session) {
+          recoveryReady = true;
+          form.hidden = false;
+          message.className = "msg";
+        }
+      });
+
+      const { data, error } = await client.auth.getSession();
+      if (error) {
+        showMessage("Não foi possível validar este link de recuperação. Solicite um novo link pelo REVORA.", "err");
+        return;
+      }
+
+      if (data && data.session) {
+        recoveryReady = true;
+        form.hidden = false;
+        message.className = "msg";
+        return;
+      }
+
+      setTimeout(() => {
+        if (!recoveryReady) {
+          form.hidden = true;
+          showMessage("Este link de recuperação é inválido ou expirou. Solicite um novo link pelo REVORA.", "err");
+        }
+      }, 1200);
+    }
+
+    initializeRecovery();
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      message.className = "msg";
+
+      const password = document.getElementById("password").value;
+      const confirm = document.getElementById("confirm").value;
+
+      if (password.length < 8) {
+        showMessage("A nova senha deve ter pelo menos 8 caracteres.", "err");
+        return;
+      }
+      if (password !== confirm) {
+        showMessage("As senhas não coincidem.", "err");
+        return;
+      }
+      if (!client || !recoveryReady) {
+        showMessage("Este link de recuperação não está válido. Solicite um novo link pelo REVORA.", "err");
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = "Atualizando…";
+
+      try {
+        const { error } = await client.auth.updateUser({ password });
+        if (error) throw error;
+
+        await client.auth.signOut();
+        recoveryReady = false;
+        form.hidden = true;
+        showMessage("Senha atualizada com sucesso. Você já pode voltar ao REVORA e entrar com sua nova senha.", "ok");
+      } catch (_) {
+        showMessage("Não foi possível atualizar a senha. O link pode ter expirado; solicite um novo link pelo REVORA.", "err");
+      } finally {
+        button.disabled = false;
+        button.textContent = "Redefinir senha";
+      }
+    });
+  </script>
+</body>
+</html>
