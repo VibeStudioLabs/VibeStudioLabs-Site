@@ -28,7 +28,7 @@
     <div class="brand"><img src="../revora_logo.png" alt="REVORA"></div>
     <h1>Crie uma nova senha</h1>
     <p class="intro">Defina uma nova senha para acessar sua conta REVORA.</p>
-    <form id="reset-form" novalidate>
+    <form id="reset-form" novalidate hidden>
       <label for="password">Nova senha</label>
       <input id="password" type="password" autocomplete="new-password" minlength="8" required>
       <label for="confirm">Confirmar nova senha</label>
@@ -49,18 +49,66 @@
     const form = document.getElementById("reset-form");
     const button = document.getElementById("submit");
     const message = document.getElementById("message");
+    let client = null;
+    let recoveryReady = false;
 
     function showMessage(text, kind) {
       message.textContent = text;
       message.className = "msg " + kind;
     }
 
-    const params = new URLSearchParams(window.location.hash.slice(1));
-    const authError = params.get("error_description");
-    if (authError) {
-      form.hidden = true;
-      showMessage("Este link de recuperação é inválido ou expirou. Solicite um novo link pelo REVORA.", "err");
+    async function initializeRecovery() {
+      const hashParams = new URLSearchParams(window.location.hash.slice(1));
+      const queryParams = new URLSearchParams(window.location.search);
+      const authError = hashParams.get("error_description") || queryParams.get("error_description");
+
+      if (authError) {
+        showMessage("Este link de recuperação é inválido ou expirou. Solicite um novo link pelo REVORA.", "err");
+        return;
+      }
+
+      if (SUPABASE_URL.startsWith("__") || SUPABASE_PUBLISHABLE_KEY.startsWith("__")) {
+        showMessage("Página ainda em configuração. Nenhuma senha foi alterada.", "err");
+        return;
+      }
+
+      client = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+        auth: {
+          persistSession: true,
+          detectSessionInUrl: true
+        }
+      });
+
+      client.auth.onAuthStateChange((event, session) => {
+        if (event === "PASSWORD_RECOVERY" && session) {
+          recoveryReady = true;
+          form.hidden = false;
+          message.className = "msg";
+        }
+      });
+
+      const { data, error } = await client.auth.getSession();
+      if (error) {
+        showMessage("Não foi possível validar este link de recuperação. Solicite um novo link pelo REVORA.", "err");
+        return;
+      }
+
+      if (data && data.session) {
+        recoveryReady = true;
+        form.hidden = false;
+        message.className = "msg";
+        return;
+      }
+
+      setTimeout(() => {
+        if (!recoveryReady) {
+          form.hidden = true;
+          showMessage("Este link de recuperação é inválido ou expirou. Solicite um novo link pelo REVORA.", "err");
+        }
+      }, 1200);
     }
+
+    initializeRecovery();
 
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
@@ -77,8 +125,8 @@
         showMessage("As senhas não coincidem.", "err");
         return;
       }
-      if (SUPABASE_URL.startsWith("__") || SUPABASE_PUBLISHABLE_KEY.startsWith("__")) {
-        showMessage("Página ainda em configuração. Nenhuma senha foi alterada.", "err");
+      if (!client || !recoveryReady) {
+        showMessage("Este link de recuperação não está válido. Solicite um novo link pelo REVORA.", "err");
         return;
       }
 
@@ -86,10 +134,11 @@
       button.textContent = "Atualizando…";
 
       try {
-        const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
         const { error } = await client.auth.updateUser({ password });
         if (error) throw error;
 
+        await client.auth.signOut();
+        recoveryReady = false;
         form.hidden = true;
         showMessage("Senha atualizada com sucesso. Você já pode voltar ao REVORA e entrar com sua nova senha.", "ok");
       } catch (_) {
