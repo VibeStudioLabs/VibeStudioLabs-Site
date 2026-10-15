@@ -20,10 +20,14 @@ Cadastrar e-mail novo no site, confirmar, validar conta e licença via backend, 
 
 ## Administração
 
-Admin separado com login, role server-side, MFA e auditoria. Listar clientes, pesquisar, abrir detalhes, editar plano/limites/validade/permissões, autorizar propriedades, suspender ou reativar, consultar pagamentos, cobranças e dispositivos. Justificativa e histórico obrigatórios.
+Admin separado com UMA única identidade autorizada, fixada manualmente no servidor (UUID verificado), MFA obrigatório e auditoria. Sem criação, convite, troca ou promoção de administrador pelo site. Listar clientes, pesquisar, abrir detalhes, editar plano/limites/validade/permissões, autorizar propriedades, suspender ou reativar, consultar pagamentos, cobranças e dispositivos. Justificativa e histórico obrigatórios.
 
 Remover propriedade significa desativação/retirada de acesso com retenção de dados, nunca exclusão abrupta. Ajustar limite não deve automaticamente criar banco. Pagamentos somente quando integração com provedor e webhooks estiver validada.
 
 ## Publicação
 
 Não publicar protótipo administrativo até backend/autorização real. Não ativar cadastro até passar verificações e teste E2E. Não modificar produção.
+
+## Configuração financeira
+
+Asaas inicia em sandbox. Painel exibe provedor, ambiente, status e conta recebedora verificada/mascarada, sem expor segredos. O único administrador pode solicitar troca de recebedor para novas cobranças apenas após validação forte da titularidade, reautenticação/MFA, confirmação reforçada e auditoria. Trocar provedor exige adaptador específico, teste de API/webhooks, migração de assinaturas, conciliação e rollback. Cobranças antigas continuam ligadas ao provedor original; jamais trocar destino retroativamente. Credenciais apenas em cofre de segredos do servidor, nunca em GitHub, JavaScript ou banco exposto. Nenhuma cobrança real autorizada nesta fase.
